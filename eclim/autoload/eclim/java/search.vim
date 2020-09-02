@@ -293,6 +293,8 @@ function! eclim#java#search#SearchAndDisplay(type, args) " {{{
   if type(results) != g:LIST_TYPE
     return
   endif
+  " definitively removing jars from results
+  call filter(results,"v:val.filename !~# '^jar:file:'")
   if !empty(results)
     if a:type == 'java_search'
       call eclim#lang#SearchResults(results, action)
